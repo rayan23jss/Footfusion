@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneaker Sizing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border: 1px solid #4CAF50;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sneaker Sizing Calculator</h1>
+        <form id="sizingForm">
+            <div class="form-group">
+                <label for="footLength">Foot Length (in cm):</label>
+                <input type="number" id="footLength" placeholder="Enter foot length" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Select Country (Size System):</label>
+                <select id="country">
+                    <option value="us">US</option>
+                    <option value="uk">UK</option>
+                    <option value="eu">EU</option>
+                </select>
+            </div>
+            <button type="submit" class="button">Get Sneaker Size</button>
+        </form>
+        <div id="result" class="result" style="display: none;"></div>
+
+        <div class="links">
+            <p>Need more info? Check out our:</p>
+            <a href="sizing-guide.html">Sizing Guide</a>
+            <a href="index.html">Home</a>
+            
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sizingForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const footLength = parseFloat(document.getElementById('footLength').value);
+            const country = document.getElementById('country').value;
+
+            let size;
+
+            const sizeChart = {
+                us: { 23: 6, 24: 7, 25: 8, 26: 9, 27: 10 },
+                uk: { 23: 5, 24: 6, 25: 7, 26: 8, 27: 9 },
+                eu: { 23: 36, 24: 37, 25: 38, 26: 39, 27: 40 },
+            };
+
+            // Determine the size based on foot length
+            if (footLength >= 23 && footLength <= 27) {
+                size = sizeChart[country][footLength];
+            } else {
+                size = "Sorry, we don't have a size for this foot length.";
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Your recommended sneaker size is: ${size}`;
+            resultDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
